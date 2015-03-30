@@ -26,7 +26,8 @@ module Es6
         data = File.read(eval_file)
 
         result = Babel::Transpiler.transform(data, {'sourceMap' => 'inline', 'sourceRoot' => source_root, 'filenameRelative' => filename_relative})
-        result['code'] + "\n" # figure out who adding ; at the end of file
+        # TODO: figure out who adding ; at the end of each js file
+        result['code'] + "\n"
       end
     end
 end
