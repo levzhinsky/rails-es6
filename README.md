@@ -7,14 +7,24 @@ A [Babel](https://babeljs.io/) adapter for the Rails asset pipeline. Plugin is i
 # Usage
 
 * Install babel
-``` bash
+```bash
 npm install --global babel
 ```
 
 * Use with Rails
-``` ruby
+```ruby
 # Gemfile
 gem 'rails-es6'
+```
+
+* Configuration
+```ruby
+# development.rb
+Rails.application.configure do
+  # enable source map for debugging
+  # false | 'inline'
+  config.es6.source_map = 'inline'
+end
 ```
 
 * Create es6 files

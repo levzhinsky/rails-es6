@@ -21,13 +21,30 @@ module Es6
       end
 
       def evaluate(context, locals, &block)
-        filename_relative = /\/([^\/]*$)/.match(context.logical_path).try(:[], 1) || context.logical_path
-        source_root = context.logical_path.gsub(filename_relative, '')
+        logical_path = context.logical_path
         data = File.read(eval_file)
 
-        result = Babel::Transpiler.transform(data, {'sourceMap' => 'inline', 'sourceRoot' => source_root, 'filenameRelative' => filename_relative})
+        result = Babel::Transpiler.transform(data, {
+          'sourceMap' => context.es6_config.source_map,
+          'sourceRoot' => source_root(logical_path),
+          'filenameRelative' => filename_relative(logical_path)})
+
         # TODO: figure out who adding ; at the end of each js file
         result['code'] + "\n"
+      end
+
+      private
+
+      def filename_regexp
+        /[^\/]*$/
+      end
+
+      def filename_relative(logical_path)
+        filename_regexp.match(logical_path)[0].to_s
+      end
+
+      def source_root(logical_path)
+        logical_path.gsub(filename_regexp, '')
       end
     end
 end
