@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.description = 'Babel adapter for the Rails asset pipeline.'
   s.authors     = ["Oleksii Levzhynskyi"]
   s.email       = 'oleksii.levzhynskyi@gmail.com'
+  s.homepage    = 'https://github.com/levzhinsky/rails-es6'
   s.files       = Dir["lib/**/*.rb"]
   s.license     = 'MIT'
 
